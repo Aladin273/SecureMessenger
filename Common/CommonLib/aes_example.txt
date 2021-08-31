@@ -1,0 +1,63 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+#include "aes.h"
+#include "base64.h"
+
+int main()
+{
+    std::ofstream fout;
+    std::string base64_string;
+
+    fout.open("encrypted_+_base64.txt");
+
+    struct AES_ctx ctx;
+
+    uint8_t key[] = "aaaaaaaaaaaaaaaa"; // 16 символов
+    uint8_t iv[]  = "bbbbbbbbbbbbbbbb";
+    uint8_t buffer[] = "Hello, nice spinning bro! Waiting you on my lake";
+    size_t buffer_size = 48;
+
+    std::cout <<  "\n raw buffer \n\n";
+
+    for (int i = 0; i < buffer_size; ++i)
+    {
+        std::cout << buffer[i];
+    }
+
+    AES_init_ctx_iv(&ctx, key, iv);
+    AES_CTR_xcrypt_buffer(&ctx, buffer, buffer_size);
+
+
+    std::cout << "\n\n Encrypted buffer \n\n";
+
+    for (int i = 0; i < buffer_size; ++i)
+    {
+        std::cout << buffer[i];
+    }
+
+    // По дефолту, зашифрованные данные в двоичном формате,
+    // юзаем функцию для перевода в текстовый
+    base64_string = base64_encode(buffer, buffer_size);
+    fout << base64_string;
+
+    std::cout << "\n\n Decrypted buffer \n\n";
+
+    AES_init_ctx_iv(&ctx, key, iv);
+    AES_CTR_xcrypt_buffer(&ctx, buffer, buffer_size);
+
+    for (int i = 0; i < buffer_size; ++i)
+    {
+        std::cout << buffer[i];
+    }
+
+    std::cout << std::endl;
+    fout.close();
+
+    // base64_string = base64_encode(buffer, buffer_size);
+    // fout << base64_string;
+
+    system("pause");
+    return 0;
+}
