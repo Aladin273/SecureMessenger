@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>img/Logo.png</file>
+        <file>img/796268.jpg</file>
+        <file>img/icon_final.png</file>
+        <file>img/hide_button_v1.png</file>
+        <file>img/unhide_button_v1.png</file>
+        <file>img/attach_button.png</file>
+        <file>img/send_button_v2.png</file>
+        <file>img/file_white.png</file>
+        <file>img/logout.png</file>
+        <file>img/icon_transparent.png</file>
+    </qresource>
+</RCC>
